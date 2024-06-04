@@ -13,6 +13,7 @@ export class PricingComponent implements OnInit {
   configPrices!: Config[];
   headerStyle = "tertiary-bg";
   page!:Aerosports;
+  pricingHeader!:Config;
   // Footer Style
   footerStyle = "tertiary-bg"
   constructor(private route: ActivatedRoute,public commonService:CommonService) {
@@ -20,6 +21,10 @@ export class PricingComponent implements OnInit {
    }
    
   ngOnInit() {
+    this.pricingHeader= this.commonService.config.filter(t=>{
+      return t.key=="pricingheader"
+    } )[0] as Config;
+
     this.configPrices= this.commonService.config.filter(t=>{
       return t.key=="pricing"
     } ) as Config[];

@@ -1,19 +1,20 @@
+<div [innerHTML]="this.commonService.currentPage.seosection"></div>
+
 <div id="parallax-image">
     <div class="row h-100">
         <div class="col-md-12 align-self-center">
             <div class="container">
                 <div class="row">
                     <div class="col-sm">
-                        <a href="{{commonService.location}}/kids-birthday-parties"> <img
-                                src="/assets/image/event.png" /></a>
+                        <a href="{{commonService.location}}/kids-birthday-parties" title="Learn more about Birthday Parties at Aerosports {{commonService.location}}"> <img
+                                src="/assets/image/event.png" class="lazyload" alt /></a>
                     </div>
                     <div class="col-sm">
-                        <a href="{{commonService.location}}/attractions"> <img src="/assets/image/park_theme.png" />
+                        <a href="{{commonService.location}}/attractions" title="Attractions at Aerosports Trampoline Park {{commonService1.location}}"> <img src="/assets/image/park_theme.png" class="lazyload" alt />
                         </a>
                     </div>
                     <div class="col-sm">
-                        <a href="{{commonService.location}}/aboutus/trampoline-park-safety-and-rules"> <img
-                                src="/assets/image/safe_jumping.png" /> </a>
+                        <a href="{{commonService.location}}/trampoline-park-safety-and-rules" title="aerosports safety at Aerosports Trampoline Park {{commonService1.location}}" > <img  src="/assets/image/safe_jumping.png" class="lazyload" alt="aerosports safety"/> </a>
                     </div>
                 </div>
                 <div class="row">
@@ -33,6 +34,29 @@
 
     </div>
 </div>
+<div class="reviews-section">
+    <div class="overall-rating">
+        Overall Rating: <span class="rating-stars">{{rating}}</span>
+    </div>
+    <div class="review-card" *ngFor="let item of reviews.reviews.slice(0, 3)">
+        <p class="rating" data-rating="4"  >
+           
+            Rating: <span class="rating-stars">{{convertRatingToStars(item.rating)}}</span>
+        </p>
+        <p class="review-text"> <span *ngIf="item.text.length <= 200">{{ item.text }}</span>
+            <span *ngIf="item.text.length > 200">
+              {{ truncateText(item.text, 200) }}
+              <span *ngIf="item.showMore">{{ item.text.substring(200) }}</span>
+              <a href="#" (click)="item.showMore = !item.showMore; $event.preventDefault()">
+                {{ item.showMore ? 'View Less' : 'View More' }}
+              </a>
+             
+            </span></p>
+        <p class="author">{{item.author_name}}</p>
+    </div>
+  
+    <!-- Add more review cards as needed -->
+</div>
 <footer class="sigma_footer style-5  pattern-squares pb-0">
     <div class="sigma_footer-middle">
         <div class="container">
@@ -40,7 +64,7 @@
                 <div class="col-lg-4">
                     <div class="sigma_footer-widget">
                         <div class="sigma_footer-logo mb-4">
-                            <a href="http://www.aerosportsparks.ca/"> <img src="/assets/image/logo/logo.png" alt="logo"></a>
+                            <a href="http://www.aerosportsparks.ca/" title="Aerosports {{commonService.location}} home page" > <img src="/assets/image/logo/logo.png" alt="aerosports logo" class="lazyload" ></a>
                         </div>
                         <div class="row">
                             <div class="col-sm-9">
@@ -49,17 +73,17 @@
                         </div>
                         <ul class="sigma_sm square mt-4 justify-content-start">
                             <li>
-                                <a href="https://www.facebook.com/{{this.commonService.locations[0].facebook}}/" title="Aerosports facebook"><i
+                                <a href="https://www.facebook.com/{{this.commonService.locations[0].facebook}}/" title="Aerosports {{commonService.location}} facebook"><i
                                         class="fab fa-facebook-f"></i></a>
                             </li>
                             <li *ngIf="this.commonService.locations[0].twitter.length>5">
-                                <a  href="https://twitter.com/{{this.commonService.locations[0].twitter}}" title="Aerosports twitter" ><i class="fab fa-twitter"></i></a>
+                                <a  href="https://twitter.com/{{this.commonService.locations[0].twitter}}" title="Aerosports {{commonService.location}} twitter" ><i class="fab fa-twitter"></i></a>
                             </li>
                             <li>
-                                <a  href="https://www.instagram.com/{{this.commonService.locations[0].insta}}/" title="Aerosports instagram" ><i  class="fab fa-instagram"></i></a>
+                                <a  href="https://www.instagram.com/{{this.commonService.locations[0].insta}}/" title="Aerosports {{commonService.location}} instagram" ><i  class="fab fa-instagram"></i></a>
                             </li>
                             <li *ngIf="this.commonService.locations[0].tiktok.length>5">
-                                <a href="https://www.instagram.com/{{this.commonService.locations[0].tiktok}}/" title="Aerosports instagram"><i
+                                <a href="https://www.instagram.com/{{this.commonService.locations[0].tiktok}}/" title="Aerosports {{commonService.location}} tiktok"><i
                                         class="fab fa-pinterest"></i></a>
                             </li>
                             <!--<li>
@@ -74,20 +98,45 @@
                         <h5 class="widget-title">Services</h5>
                         <ul class="sigma_footer-links">
                             <li *ngFor="let item of navigation">
-                                <a href="{{commonService.location}}/attractions/{{item.path}}">{{item.desc}}</a>
+                                <a href="{{commonService.location}}/{{item.path}}" title="{{item.desc}} at Aerosports Trampoline Park {{commonService.location}}">{{item.desc}}</a>
                             </li>
                         </ul>
-                    </div>
-                </div>
-                <div class="col-lg-2 col-sm-3">
-                    <div class="sigma_footer-widget">
                         <h5 class="widget-title">Company</h5>
                         <ul class="sigma_footer-links">
                             <li *ngFor="let item of aboutUsLinks">
-                                <a href="{{commonService.location}}/aboutus/{{item.path}}">{{item.desc}}</a>
+                                <a href="{{commonService.location}}/{{item.path}}" title="{{item.desc}} at Aerosports Trampoline Park {{commonService.location}}">{{item.desc}}</a>
                             </li>
 
                         </ul>
+                    </div>
+                </div>
+                
+                <div class="col-lg-2 col-sm-3">
+                    <div class="sigma_footer-widget">
+                        <h5 class="widget-title">Programs</h5>
+                        <ul class="sigma_footer-links">
+                            <li *ngFor="let item of programsLinks">
+                                <a href="{{commonService.location}}/{{item.path}}" title="{{item.desc}} at Aerosports Trampoline Park {{commonService.location}}">{{item.desc}}</a>
+                            </li>
+
+                        </ul>
+                         <br/>
+                        <h5 class="widget-title">Groups</h5>
+                        <ul class="sigma_footer-links">
+                            <li *ngFor="let item of groups">
+                                <a href="{{commonService.location}}/{{item.path}}" title="{{item.desc}} at Aerosports Trampoline Park {{commonService.location}}">{{item.desc}}</a>
+                            </li>
+
+                        </ul>
+                    <br/>
+                        <h5 class="widget-title">Company</h5>
+                        <ul class="sigma_footer-links">
+                            <li *ngFor="let item of aboutUsLinks">
+                                <a href="{{commonService.location}}/{{item.path}}" title="{{item.desc}} at Aerosports Trampoline Park {{commonService.location}}">{{item.desc}}</a>
+                            </li>
+
+                        </ul>
+                     
                     </div>
                 </div>
                 <div class="col-lg-3 col-sm-6">
@@ -95,13 +144,12 @@
                         <h5 class="widget-title">Latest News</h5>
                         <div class="widget widget-recent-posts">
                             <article class="sigma_recent-post"
-                                *ngFor="let item of this.commonService.blogs | slice:0:2">
-                                <a routerLink="/{{commonService.location}}/blog-details/{{item.id}}"><img [src]="item.image"
-                                        [alt]="item.title"></a>
+                                *ngFor="let item of blogs | slice:0:2">
+                                <a href="/{{commonService.location}}/{{item.path}}"><img [src]="item.icon" class="lazyload"
+                                        [alt]="item.desc"></a>
                                 <div class="sigma_recent-post-body">
-                                    <a routerLink="/{{commonService.location}}/blog-details/{{item.id}}"> <i class="far fa-calendar"></i>
-                                        {{item.postdate}}</a>
-                                    <h6> <a routerLink="/{{commonService.location}}/blog-details/{{item.id}}">{{item.title}}</a> </h6>
+                                    
+                                    <h6> <a href="/{{commonService.location}}/{{item.path}}">{{item.desc}}</a> </h6>
                                 </div>
                             </article>
                         </div>
@@ -133,5 +181,5 @@
             </ul>-->
         </div>
     </div>
-
+   
 </footer>

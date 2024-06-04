@@ -1,4 +1,4 @@
-import { AfterViewInit, AfterContentInit, Injectable, OnInit } from '@angular/core';
+aimport { AfterViewInit, AfterContentInit, Injectable, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import cases from '../data/case/case.json';
 import authors from '../data/team.json';

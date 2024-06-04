@@ -12,11 +12,11 @@
     <!-- Popular Feed Start -->
     <div class="sidebar-widget widget-recent-posts">
         <h5 class="widget-title">Recent Posts</h5>
-        <article class="sigma_recent-post" *ngFor="let item of commonService.blogs">
-            <a routerLink="/{{commonService.location}}/blog-details/{{item.id}}"><img [src]="item.image" [alt]="item.title"></a>
+        <article class="sigma_recent-post" *ngFor="let item of blogs">
+            <a href="/{{commonService.location}}/{{item.path}}"><img [src]="item.smallimage" [alt]="item.title"></a>
             <div class="sigma_recent-post-body">
-                <a routerLink="/{{commonService.location}}//blog-details/{{item.id}}"> <i class="far fa-calendar"></i>{{item.postdate}}</a>
-                <h6> <a routerLink="/{{commonService.location}}/blog-details/{{item.id}}">{{item.title | slice:0:50}}</a> </h6>
+                <a href="/{{commonService.location}}/{{item.path}}"> <i class="far fa-calendar"></i>{{item.id}}</a>
+                <h6> <a href="/{{commonService.location}}/{{item.path}}">{{item.title | slice:0:50}}</a> </h6>
             </div>
         </article>
     </div>

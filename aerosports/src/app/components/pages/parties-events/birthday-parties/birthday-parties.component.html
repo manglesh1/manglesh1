@@ -2,44 +2,35 @@
 <!--
 <video style="80vh; width:100%; object-fit:fill;" src="assets/img/video/Award-winning Aerosports Birthday Parties!.mp4" autoplay muted loop></video>
 -->
-<div class="section section.section-lg">
+
   <div class="container">
-    <div class="section-title text-center">
-      <h4 class="title">Birthday Packages</h4>
-    </div>
-    <div class="row">
+    <div [innerHTML]="this.commonService.currentPage.section1"></div>
+  </div>
+  <div class="boxcontainer">
+  
+   
       <!-- Pricing Item Start -->
-      <div class="col-md-6 col-lg-5" *ngFor="let item of bps">
-        <div
-          class="sigma_pricing pricing-2"
-          [ngClass]="item.id === 2 ? 'main' : ''"
-        >
-          <div class="sigma_pricing-price">
-            <span class="sigma_pricing-currency"
-              >${{ item.price | number : "1.0-0" }}</span
-            >
-          </div>
-          <div class="sigma_pricing-info">
-            <h5 class="sigma_pricing-title">{{ item.plantitle }}</h5>
-            <span>{{ item.category }}</span>
-          </div>
-          <ul class="list-style-none">
+      <div  *ngFor="let item of bps" class="box shadow">
+       
+          <div class="boxcircle">    <span class="textinsidecircle"            >${{ item.price | number : "1.0-0" }}</span> </div>
+          <div class="sigma_pricing-info"><h5 class="sigma_pricing-title">{{ item.plantitle }}</h5><span>{{ item.category }}</span></div>
+          <ul class="pinklist">
             <li *ngFor="let list of item.includes.split(';')">
-              <span></span>{{ list }}
+              {{ list }}
             </li>
           </ul>
           <br />
           <ngb-accordion id="ngb1" [animation]="true" [closeOthers]="true">
             <ngb-panel title="PARTY ADDONS">
               <ng-template ngbPanelContent>
-                <ul class="list-style-none">
+                <ul class="pinklist">
                   <li *ngFor="let item of addons">{{ item.value }}</li>
                 </ul>
               </ng-template>
             </ngb-panel>
             <ngb-panel title="TERMS & CONDITIONS">
               <ng-template ngbPanelContent>
-                <ul class="list-style-none">
+                <ul class="pinklist">
                   <li *ngFor="let item of rules">{{ item.value }}</li>
                 </ul>
               </ng-template>
@@ -54,12 +45,12 @@
               >Check Availability or Book Now
             </a>
           </div>
-        </div>
-      </div>
+       
+      
       <!-- Pricing Item End -->
     </div>
   </div>
-</div>
+
 <!--
 <div class="col-8 container"
  style="text-transform: uppercase!important;text-align: left!important;font-size:24px; font-style: italic;font-weight: bolder; color: white;   background-color:#1180b3; border:3px solid red;border-radius: 5px; padding: 40px 60px 20px 20px;">

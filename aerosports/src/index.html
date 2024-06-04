@@ -3,9 +3,7 @@
   <head>
     <meta http-equiv="Cache-Control" content="max-age=36000" />
     <meta charset="utf-8" />
-    <title>
-      Aerosports Trampoline Park | Best Amusement Park & Birthday Place
-    </title>
+    
     <base href="/" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link
@@ -13,18 +11,19 @@
       type="image/x-icon"
       href="assets/image/Favicon_Icon_aerosports.png"
     />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
-    />
+   
     <meta
       name="description"
       content="AeroSports Amusement Park / Indoor playground features a variety of attractions like open jumps, dodgeball and arcades. Best place to host kids birthday parties"
     />
+   
+  
+   
     <script
       async
-      src="https://www.googletagmanager.com/gtag/js?id=UA-50747130-3"
-    ></script>
+      src="https://www.googletagmanager.com/gtag/js?id=G-CJJLRQ2Q2Y"
+    >
+  </script>
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag() {
@@ -32,8 +31,8 @@
       }
       gtag("js", new Date());
     </script>
-    <!-- Google Tag Manager -->
-    <script>
+
+   <!-- <script>
       (function (w, d, s, l, i) {
         w[l] = w[l] || [];
         w[l].push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
@@ -44,14 +43,12 @@
         j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
         f.parentNode.insertBefore(j, f);
       })(window, document, "script", "dataLayer", "GTM-MC6WSDM");
-    </script>
+    </script>-->
     <!-- End Google Tag Manager -->
 
     <script>
       var cu = window.location.href;
-      if (cu.indexOf("brampton") > 0) {
-        window.location.href = "https://aerosportsbrampton.ca/";
-      }
+     
       if (cu.indexOf("park-features") > 0) {
         window.location.href = window.location.href.replace(
           "park-features",
@@ -71,23 +68,19 @@
         //  window.location.href='https://www.aerosportsparks.ca/oakville/groups-events/corporate-parties-events-groups/';
       }
     </script>
-    <!-- Sendinblue Conversations {literal} -->
-    <script>
-      (function (d, w, c) {
-        w.SibConversationsID = "6027df7d21b9121c786974a4";
-        w[c] =
-          w[c] ||
-          function () {
-            (w[c].q = w[c].q || []).push(arguments);
-          };
-        var s = d.createElement("script");
-        s.async = true;
-        s.src =
-          "https://conversations-widget.sendinblue.com/sib-conversations.js";
-        if (d.head) d.head.appendChild(s);
-      })(document, window, "SibConversations");
-    </script>
+   
     <!-- /Sendinblue Conversations {/literal} -->
+    <style>
+      #mainbody {
+    width: 100%;
+    max-width: 1520px;
+    margin: auto;
+    background:white;
+    align-items: center;
+}
+
+
+    </style>
   </head>
   <body>
     <!-- Google Tag Manager (noscript) -->
@@ -100,6 +93,13 @@
       ></iframe
     ></noscript>
     <!-- End Google Tag Manager (noscript) -->
+    
+    <!--  <div class="section section-padding pt-0 diagonal-hero-bg" style="background-image:url('https://storage.googleapis.com/aerosports/attraction-icon.png');" >-->
+      <div class="section section-padding pt-0 diagonal-hero-bg">      
+      <div  id="mainbody">
     <app-root></app-root>
+    </div>
+    </div>
+    <script src="assets/lazysizes.min.js"></script>
   </body>
 </html>

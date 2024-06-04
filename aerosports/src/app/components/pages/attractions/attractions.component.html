@@ -1,38 +1,25 @@
 <app-header></app-header>
 
 <div class="section section-padding pt-0">
-  <div class="container">
+  <div class="list-section">
     <div class="section-title text-center">
       <h4 class="title">{{ currentPage.desc }}</h4>
     </div>
     <div class="row">
-      <div
-        class="col-lg-4 col-md-6"
-        *ngFor="let item of currentPage.children | slice : 0 : 10"
-      >
+      <div    class="col-lg-4 col-md-6"    *ngFor="let item of currentPage.children | slice : 0 : 10"  >
         <div class="sigma_service style-3">
           <!-- <div class="sigma_service-thumb">
                         <i [class]="item.icon"></i>
                     </div>-->
           <div *ngIf="item.smallimage != ''">
-            <a
-              routerLink="/{{ commonService.location }}/{{ pagetype }}/{{
-                item.path
-              }}"
-            >
-              <img src="{{ item.smallimage }}" alt="#" class="img-responsive"
-            /></a>
+            <a  routerLink="/{{ commonService.location }}/{{item.path}}"  title="{{item.path}} at aerosports trampline park {{commonService.location}}" >
+              <img src="{{ item.smallimage }}" alt="{{(item.smallimage.split('/').pop()).split('.')[0]}}"    /></a>
           </div>
           <div class="sigma_service-body">
             <h5>{{ item.desc }}</h5>
             <p>{{ item.smalltext }}</p>
             <a
-              routerLink="/{{ commonService.location }}/{{ pagetype }}/{{
-                item.path
-              }}"
-              class="btn-link"
-            >
-              Read More <i class="far fa-arrow-right"></i>
+              routerLink="/{{ commonService.location }}/{{ pagetype }}/{{item.path}}" class="btn-link" >Read More <i class="far fa-arrow-right"></i>
             </a>
           </div>
         </div>

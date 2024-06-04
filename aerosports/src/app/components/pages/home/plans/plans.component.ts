@@ -13,14 +13,14 @@ export class PlansComponent implements OnInit {
   
   
   public currentPage!: Aerosports;
-  constructor(public commonService:CommonService) { }
+  constructor(public commonService:CommonService) {console.log('inside appplan constru'); }
 
   ngOnInit(): void {
     this.currentPage = this.commonService.aerosports.filter(s =>{
       return s.pagetype == this.pagetype;
     })[0] as Aerosports;
 
-    console.log(this.commonService.aerosports);
+    console.log('inside app plan');
   }
 
 }

@@ -1,23 +1,12 @@
 <app-header></app-header>
-<div class="container-fluid" style="background-color: #077FB2;">
-    <div class="container" >
-        <h3 style="text-align:center">General Admission:</h3>
-        <p style="text-align: center;">Unlike other parks, our prices include access
-            to the slides, ninja courses, trampolines, dodge ball court, rock
-            climbing walls and free jump area. You won’t find a better value!</p>
-
-    </div>
+<div class="container-fluid " style="background-color: #077FB2;">
+    <div class="container-fluid " style="background-color: #077FB2; width: 90%; align-items: center; "></div>
+    <div class="detailedContent" [innerHTML]="page.section1" ></div><br/>
     <div class="row">
-    
-
-        <div class="container text-align:center; "  style="color:white;background-color: black; border-radius: 30px;">
+                <div class="container"  style="color:white;background-color: black; border-radius: 30px;">
             <div class ="row" >
-            <div class="col">Age</div>
-            <div class="col">60 Min</div>
-            <div class="col">90 Min</div>
-            <div class="col">120 Min</div>
-            <div class="col">Day Pass</div>
-            </div>
+                <div class="col" *ngFor = "let item of pricingHeader.value.split(';')" >{{item}}</div>
+             </div>
 
             <div class="row"  *ngFor = "let test of this.configPrices">
                 <div class="col" *ngFor = "let item of test.value.split(';')" >{{item}}</div>
@@ -26,8 +15,8 @@
    
     </div>
        
-<div class="row">
-    <ul class="container" style="list-style-type:square;color:white;" [innerHTML]="page.section1">    
+<div class="row" style="margin-left:5%">
+    <ul class="container  detailedContent" style="list-style-type:square;color:white;" [innerHTML]="page.section2">    
           
     </ul>
 
@@ -37,6 +26,6 @@
 <div class="col" style="background-image:url('/assets/image/bg-hour-pricing-2.png') ;" ></div>
 </div>
 
-
+</div><div>
 </div>
 <app-footer></app-footer>

@@ -1,17 +1,18 @@
-import { Component, Input, OnDestroy } from '@angular/core';
+import { Component, ElementRef, Input, OnDestroy, Renderer2 } from '@angular/core';
 import { HelperService } from '../../services/helper.service';
 import { CommonService } from '../../services/common.service';
 import { Aerosports } from '../../models/aerosports';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import {PromoPopupComponent} from '../../pages/promo-popup/promo-popup.component';
-
 import { ContactFormComponent } from '../../pages/contact/contact-form/contact-form.component';
+import { PromoPopupComponent } from '../../pages/promo-popup/promo-popup.component';
+
+
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.css']
+  styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent extends HelperService implements OnDestroy  {
   public navigation!: Aerosports[];
@@ -20,17 +21,12 @@ export class HeaderComponent extends HelperService implements OnDestroy  {
   pagetype!: string | any;
   someSubscription!: any;
   path!:string | any;
-  settings = {
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    arrows: false,
-    dots: false,
-    autoplay: true
-  };
+  
   constructor(private route: ActivatedRoute, 
     private router: Router,public helperService: HelperService, 
     public commonService: CommonService,
-    public modalService: NgbModal) {
+    public modalService: NgbModal,private renderer: Renderer2,private el: ElementRef,) {
+      console.log('inside header')
     super();
     //console.log(this.commonService.aerosports);
     this.navigation = this.commonService.aerosports.filter(t=>{
@@ -38,12 +34,14 @@ export class HeaderComponent extends HelperService implements OnDestroy  {
         {return s.isactive=='1';});
       return t.isactive=='1';
     });
+   
     this.location=this.commonService.locations[0];
     //console.log(this.navigation);
     this.pagetype = this.router.url.split('/').pop();
     
     var urlitems=this.router.url.split('/');
     this.path=this.router.url.split('/').pop();
+    
     //console.log(urlitems);
     //console.log(this.path);
        if(urlitems.length==2)
@@ -64,7 +62,11 @@ export class HeaderComponent extends HelperService implements OnDestroy  {
       }
       //console.log("header")
        //console.log(this.page);
-
+       if(this.page.headerimage.split(',').length ==1)
+        {
+          this.page.headerimage=this.page.headerimage+','+this.page.headerimage;
+          console.log('only one image')
+        }
       this.router.routeReuseStrategy.shouldReuseRoute = function () {
         return false;
       };
@@ -75,44 +77,65 @@ export class HeaderComponent extends HelperService implements OnDestroy  {
           this.router.navigated = false;
         }
       });
-   
-      if(this.commonService.allPages.filter(m=>{
+    
+    if(this.commonService.allPages.filter(m=>{
         return m.path== 'membership'; 
         }).length>0)
         {
 
-           if(!this.commonService.isPromoPopupDisplayed)
+           if(this.commonService.getconfig('promotion-popup').length >0)
               this.modalService.open(PromoPopupComponent, {size: 'lg', keyboard: false, centered: false});  
         }
-   
+       
+       
   }
   ngOnDestroy(): void {
     if (this.someSubscription) {
       this.someSubscription.unsubscribe();
     }
+    
   }
+  ngAfterContentInit():void{
+
+   
+  }
+  /*setSeo(title:string, location:string):void{
+    const style = this.renderer.createElement('title');
+    this.renderer.setProperty(style, 'textContent', title + " | " + "Indoor Trampoline Park - "+ location +" - Aerosports");
+    this.renderer.appendChild(this.el.nativeElement.ownerDocument.head, style); 
+  }*/
+  
+  
+
   getconfig(key:string): string {
-//console.log(s);
-//console.log(this.commonService.config);
-var s: any[];
+//console.log(key);
+    //console.log(this.commonService.config);
+    var s: any[];
     s = this.commonService.config.filter(t=>{
-      return t.key==key;
-    }) ;
-   // console.log(s);
-if(s.length>0)
+    // var s = this.commonService.config.filter(t=>{
+      return t.key == key;
+         }) ;
+   if(s.length>0)
    return s[0].value;
    else 
-   return '';    
-    
+       return '';
+
   }
   
   getroller(): string {
-    //console.log(this.page);
-    //console.log(this.getconfig(this.path+'-roller-url'));
+    // console.log(this.page);
+    // if(this.page.booknowurl=='')
+    // {
+    //   return this.getconfig('estore');
+    // }
+    //  else
+    //  {
+    //   return this.getconfig('estorebase') + this.page.booknowurl;
+    //  } 
     if(this.getconfig(this.path+'-roller-url')!='')
     return this.getconfig(this.path+'-roller-url');
-      
-    
+
+
 
 
     if(this.page.booknowlink!='')
@@ -120,25 +143,8 @@ if(s.length>0)
       var urlLocation=this.commonService.location==='oakville'?'oakvillemississauga':this.commonService.location;
       return this.page.booknowlink.replace("{0}",'aerosports'+urlLocation);
     }
-    
+
     return this.getconfig('estorebase');
-    
-
-    
-   
-         
-
-   /* var urlLocation=this.commonService.location==='oakville'?'oakvillemississauga':this.commonService.location;
-
-
-    if(this.page.booknowlink!='')
-    {
-      return this.page.booknowlink.replace("{0}",'aerosports'+urlLocation);
-    }
-     else
-     {
-      return this.getconfig('estorebase');
-     } */
 
     }
   ngOnInit(): void { 
@@ -165,3 +171,7 @@ if(s.length>0)
   }
 
 }
+function imageRotation(i: number, bigint: any, numberOfImages: number, bigint1: any) {
+  throw new Error('Function not implemented.');
+}
+

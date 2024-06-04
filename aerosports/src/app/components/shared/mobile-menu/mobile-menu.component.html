@@ -15,7 +15,7 @@
             <li class="menu-item" [ngClass]="hasChildren(citem) ? 'menu-item-has-children' : ''"
             *ngFor="let citem of item.children">
             <a href="javascript:void(0)" *ngIf="hasChildren(citem)">{{citem.desc}}</a>
-            <a routerLink="/{{commonService.location}}/{{item.path}}/{{citem.path}}" *ngIf="!hasChildren(citem)">{{citem.desc}}</a>
+            <a routerLink="/{{commonService.location}}/{{citem.path}}" *ngIf="!hasChildren(citem)">{{citem.desc}}</a>
         
             </li>
         </ul>

@@ -1,8 +1,7 @@
-import { AfterViewInit, OnInit, Injectable, HostListener } from '@angular/core';
+import { AfterViewInit, OnInit, Injectable,  ElementRef, Renderer2, SecurityContext } from '@angular/core';
 import $ from 'jquery';
 import 'magnific-popup';
-import { Aerosports } from '../models/aerosports';
-import { CommonService } from './common.service';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Injectable({
   providedIn: 'root'
@@ -12,6 +11,7 @@ export class HelperService implements OnInit, AfterViewInit {
   constructor( ) {
     console.log('basehelper');    
   }
+  
   // Sticky Nav
   /* 
   @HostListener('window:scroll', ['$event'])
@@ -48,6 +48,7 @@ export class HelperService implements OnInit, AfterViewInit {
     
   }
   ngAfterViewInit(): void {
+    /*
     ($('.popup-youtube') as any).magnificPopup({
       type: 'iframe'
     });
@@ -57,7 +58,7 @@ export class HelperService implements OnInit, AfterViewInit {
         enabled: true,
       },
       mainClass: 'mfp-fade',
-    });
+    });*/
   }
   
 }

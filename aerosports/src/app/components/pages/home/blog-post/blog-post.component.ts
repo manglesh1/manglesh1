@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Aerosports } from 'src/app/components/models/aerosports';
 import { CommonService } from 'src/app/components/services/common.service';
 import { HelperService } from 'src/app/components/services/helper.service';
 
@@ -8,8 +9,10 @@ import { HelperService } from 'src/app/components/services/helper.service';
   styleUrls: ['./blog-post.component.css']
 })
 export class BlogPostComponent  {
-  
+  blogs:Aerosports[];
   ngOnInit() {
+
+    this.blogs= (this.commonService.aerosports.filter(t=>{ return t.path.toUpperCase() =='blogs'.toUpperCase()})[0].children) as Aerosports[]
     
   }
   public getInitialDate(string: string) {

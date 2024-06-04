@@ -10,6 +10,8 @@ import { BirthdayPartiesComponent } from '../pages/parties-events/birthday-parti
 import { PricingComponent } from '../pages/pricing/pricing.component';
 import { UnsubscribeComponent } from '../pages/unsubscribe/unsubscribe.component';
 import { CommonService, slideInAnimation } from './common.service';
+import { HomeComponent } from '../pages/home/home.component';
+import { LocationComponent } from '../pages/home/location/location.component';
 
 @Injectable({
   providedIn: 'root'
@@ -30,13 +32,16 @@ export class DynamicRouterService {
     this.commonService.allPages.forEach(s =>{
       this.iterate(s, "/" + s.path);
     });
-    console.log(this.commonService.blogs);
+   // console.log(this.commonService.blogs);
 
-    this.commonService.blogs.forEach(b =>{
+    /*this.commonService.blogs.forEach(b =>{
      var route = {path: ":location/blogs/" + b.id  ,  component: BlogDetailsComponent} as Route;
       this.modifiedRoutes.push(route)    ; 
-    });
+    });*/
     var route = {path: "unsubscribe"   ,  component: UnsubscribeComponent} as Route;
+    //var route = {path: ""   ,  component: LocationComponent} as Route;
+    //var route = {path: ":location/home"   ,  component: HomeComponent} as Route;
+   // var route = {path: ":location"   ,  component: HomeComponent} as Route;
     this.modifiedRoutes.push(route)    ; 
 
 
@@ -50,8 +55,8 @@ export class DynamicRouterService {
       if(urlItems.length >= 4){
         this.router.navigate([window.location.pathname]);
       }
-
-    console.log(this.modifiedRoutes);
+//console.log('all routes')
+ //   console.log(this.routes);
   }
 
   iterate(s: any, path: string){
@@ -63,18 +68,28 @@ export class DynamicRouterService {
     }
     if(s.path==s.pagetype)
     {
-      var route = {path: ":location" + path,  component: this.getComponent(s.path)} as Route;
+      var route = {path: ":location" + path,  component: this.getComponent(s.path.replace('/',''))} as Route;
       this.modifiedRoutes.push(route)    ; 
+      //console.log('path=pagetype');
+      //console.log( ":location" + path);
+      //console.log(route);
     }
     else{
+      //console.log(s.path);
       var route = {path: ":location" + path + (s.parentid === '' ? '' : "/:type")  ,  component: this.getComponent(s.path)} as Route;
+     //var route = {path: ":location" +  (s.parentid === '' ? '' : path)  ,  component: this.getComponent(s.path)} as Route;
+     var route = {path: ":location" +  '/' + s.path  ,  component: this.getComponent(s.path)} as Route;
         this.modifiedRoutes.push(route)    ; 
+        var route1 = {path: ":location" + path + (s.parentid === '' ? '' : "/:type")  ,  component: this.getComponent(s.path)} as Route;
+        this.modifiedRoutes.push(route1)    ; 
+     //   console.log('path!=pagetype' + route);
+      //  console.log(route);
     }
   }
 
   getComponent(type: string): Type<any> {
     
-  
+ // console.log(type);
     switch (type) {
         case PageTypes.PartiesEvents: {
             return AttractionsComponent;
@@ -98,6 +113,7 @@ export class DynamicRouterService {
           return AttractionsComponent;
         }
         case PageTypes.BirthdayParties:{
+         // console.log('BirthdayPartiesComponent');
           return BirthdayPartiesComponent;
         }
         
@@ -108,15 +124,25 @@ export class DynamicRouterService {
           return AttractionDetailComponent;
         }
         case  PageTypes.PricingComponent:{
-             console.log('PricingComponent');
+            // console.log('PricingComponent');
             return PricingComponent;
         }
         case  PageTypes.Unsubscribe:{
                    return UnsubscribeComponent;
         }
+        case PageTypes.HomeComponent:{
+         // console.log('HomeComponent');
+          return HomeComponent
+
+
+        }
     
         default:
+          {
+           // console.log('default AttractionDetailComponent');
           return AttractionDetailComponent;
+
+          }
     }
 } 
 }

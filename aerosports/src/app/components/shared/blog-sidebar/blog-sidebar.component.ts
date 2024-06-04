@@ -10,9 +10,11 @@ import { CommonService } from '../../services/common.service';
 export class BlogSidebarComponent  {
   commonService:CommonService
 //  recentPost!:blog;
+blogs :any[];
   constructor (public commonService1: CommonService)
   {
     this.commonService=commonService1;
+    this.blogs = this.commonService.aerosports.filter(t=>{ return t.path.toUpperCase() =="blogs".toUpperCase()})[0].children;
 }
 
 }

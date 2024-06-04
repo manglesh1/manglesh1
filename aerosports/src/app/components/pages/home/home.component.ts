@@ -7,7 +7,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
-  constructor() { }
+  constructor() { 
+
+    console.log(' inside HomeComponent i nint')
+  }
   // Header style
   headerStyle = "tertiary-bg";
   // Footer Style
@@ -15,6 +18,7 @@ export class HomeComponent implements OnInit {
   attractionCompType="attractions";
 
   ngOnInit(): void {
+    console.log(' inside HomeComponent')
   }
 
 }

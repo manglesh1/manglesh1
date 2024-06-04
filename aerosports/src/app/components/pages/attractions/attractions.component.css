@@ -1,0 +1,12 @@
+.close-menu{display: none;}
+.close-menu:before{content:""}
+.hide{display:none}
+
+.list-section {
+    padding: 50px;
+    text-align: center;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    background: linear-gradient(to right, #5ec2ff, #ff7a6d);
+}

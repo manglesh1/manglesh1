@@ -1,41 +1,25 @@
-  img {
-   height: 120px;     
-   margin-top: 20px;
-  }
-  .card {
-    
-    width: 150px;
-    height: 180px;
-    background-color: transparent;
-    display: flex;
-    justify-content: center;flex-direction: column; align-items: center;
-   
-   /*         transform: rotateY(50deg);*/
-    box-shadow: -6px 5px 13px 2px rgba(0, 0, 0, 0.25);
-   transition: all 1s ease;
-    color: transparent;
-    margin-top: 50px;
-  }
-  .card:hover {
-    width: 150px;
-    height: 180px;
-   /* opacity: 0.3;
-    transform: rotateY(0deg); 
-    box-shadow: 0px 0px 36px 2px rgba(0, 0, 0, 0.25);*/
-    
-    box-shadow: -6px 5px 13px 2px  #489bc7;
-    
-  }
-  .card:hover p {
-    
-  }
-  p.desc {
-    position:relative;
-    padding: 10px;
-    text-decoration: solid;
-    text-align: center;
-  }
-  p.desc:hover {
-  }
-
-  
+.location-attractions{background-color:#fff;padding-top:1.25rem;padding-bottom:1.25rem;font-family:"Knockout 49 Liteweight",Arial Narrow,sans-serif;font-weight:500;font-size:2.25rem}
+  @media (min-width: 30rem){.location-attractions{padding-top:2.1875rem;padding-bottom:2.1875rem}}
+  @media (min-width: 62rem){.location-attractions{padding-top:3.125rem;padding-bottom:3.125rem}}
+  .location-attractions h2{font-size:2.25rem;text-transform:uppercase;margin-bottom:.625rem}
+  @media (min-width: 30rem){.location-attractions h2{font-size:2.8125rem}}
+  /**@media (min-width: 62rem){.location-attractions h2{font-size:4.125rem}}*/
+  .location-attractions-strapline{font-size:1.3125rem;margin-bottom:1.875rem}
+  @media (min-width: 30rem){.location-attractions-strapline{font-size:1.5rem;margin-bottom:2.5rem}}
+  @media (min-width: 62rem){.location-attractions-strapline{font-size:2.125rem;margin-bottom:3.125rem}}
+  .location-attractions-figure{border-bottom:.9375rem #ddd solid;margin-bottom:1.5625rem}
+  .location-attractions-figure img{display:block;width:100%;height: ;}
+  .location-attractions-caption{background-image:url('https://storage.googleapis.com/aerosports/attraction-icon.png');background-size:cover;background-position:center;text-align:center;text-transform:uppercase;color:#fff;padding-top:2rem;padding-bottom:2rem}
+  .location-attractions-img-container{position:relative}.location-attractions-img-container iframe{position:absolute;inset:0;width:100%;opacity:0;transition:opacity .2s ease-out;height:100%;background:#000;pointer-events:none}
+  .location-attractions-img-container.hover iframe{opacity:1;transition:opacity .5s ease-out}
+  @media (min-width: 48rem) {
+    .row .col-md-33 {
+        width: 33.3333333333%;
+    }
+}
+.row>.col, .row>[class*=col-] {
+  flex-shrink: 0;
+  max-width: 100%;
+  padding-left: .9375rem;
+  padding-right: .9375rem;
+}

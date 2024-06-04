@@ -9,37 +9,18 @@
       <!-- Article Start -->
       <div
         class="col-md-4"
-        *ngFor="let item of commonService.blogs | slice : 0 : 3"
-      >
+        *ngFor="let item of blogs | slice : 0 : 3" >
         <article class="sigma_post">
           <div class="sigma_post-thumb">
-            <a
-              routerLink="/{{ commonService.location }}/blog-details/{{
-                item.id
-              }}"
-            >
-              <img [src]="item.image" [alt]="item.title" />
+            <a  href="/{{ commonService.location }}/{{item.path}}" ><img [src]="item.smallimage" [alt]="item.title" class="lazyload" />
             </a>
-            <div
-              class="sigma_post-date"
-              [innerHtml]="getInitialDate(item.postdate)"
-            ></div>
+            <div              class="sigma_post-date"   ><span>1</span></div>
           </div>
           <div class="sigma_post-body">
             <h5>
-              <a
-                routerLink="/{{ commonService.location }}/blog-details/{{
-                  item.id
-                }}"
-                >{{ item.title | slice : 0 : 50 }}</a
-              >
+              <a  href="/{{ commonService.location }}/{{item.path}}">{{ item.title | slice : 0 : 50 }}</a>
             </h5>
-            <a
-              routerLink="/{{ commonService.location }}/blog-details/{{
-                item.id
-              }}"
-              class="btn-link"
-              >Continue Reading <i class="far fa-arrow-right"></i>
+            <a   href="/{{ commonService.location }}/{{item.path}}" class="btn-link" >Continue Reading <i class="far fa-arrow-right"></i>
             </a>
           </div>
         </article>

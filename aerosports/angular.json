@@ -32,17 +32,12 @@
             ],
             "styles": [
               "./node_modules/bootstrap/dist/css/bootstrap.min.css",
-              "./node_modules/slick-carousel/slick/slick.scss",
-              "./node_modules/slick-carousel/slick/slick-theme.scss",
-              "src/assets/fonts/flaticon/flaticon.css",
-              "src/assets/css/plugins/font-awesome.min.css",
               "src/assets/css/style.css",
               "src/assets/css/responsive.css",
               "src/styles.css"
             ],
             "scripts": [
-              "./node_modules/jquery/dist/jquery.min.js",
-              "./node_modules/slick-carousel/slick/slick.min.js"
+           
             ]
           },
           "configurations": {
@@ -103,8 +98,8 @@
               "src/favicon.ico",
 			         "src/googlef01b1a9ca7cc84a0.html",         
               "src/assets",
-               "robots.txt",
-               "sitemap.xml",
+               "src/robots.txt",
+               "src/sitemap.xml",
                "sitemap_blogs.xml"
             ],
             "styles": [

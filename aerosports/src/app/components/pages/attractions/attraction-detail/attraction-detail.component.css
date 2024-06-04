@@ -1,0 +1,29 @@
+.detailedContent {
+	font-family: 'Lato';
+	color: #000000;
+	
+	padding: 0;
+	opacity: 1;
+	text-shadow: 0 0 0 transparent;
+	line-height: 1.3em;
+	letter-spacing: 0;
+	text-align: left;
+	font-size: 24px !important;;
+	padding-bottom: 50px;
+   
+  }
+  .detailedContent h5 h4{
+
+  }
+  @media screen and (min-width: 0px) and (max-width: 480px) {
+	  .detailedContent{
+		  font-size: 20px !important;;
+		  margin-left: 10px;
+   margin-right: 5px;
+	  }
+  }
+
+#detailedContent ul{
+	list-style-position:inside;
+
+}

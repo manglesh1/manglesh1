@@ -1,10 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { CommonService } from './components/services/common.service';
 
 export const routes: Routes = [
   //location
   { path: '', loadChildren: () => import('./components/pages/home/home.module').then(m => m.HomeModule), data: { breadcrumb: 'Homepage' } }
-  ,
+ ,
   // home
   //{ path: ':location/attractions', loadChildren: () => import('./components/pages/home/home.module').then(m => m.HomeModule), data: { breadcrumb: 'Homepage' } },
   // { path: 'home-v2', loadChildren: () => import('./components/pages/home-v2/home-v2.module').then(m => m.HomeV2Module), data: { breadcrumb: 'Homepage' } },
@@ -44,7 +45,7 @@ export const routes: Routes = [
   exports: [RouterModule]
 })
 export class AppRoutingModule { 
-  constructor(){
-    
-  }
+  constructor(cs:CommonService){
+    console.log('AppRoutingModule Router log'); 
+    }
 }

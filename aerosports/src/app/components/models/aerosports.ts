@@ -1,3 +1,4 @@
+import { HomeComponent } from "../pages/home/home.component";
 import { PricingComponent } from "../pages/pricing/pricing.component";
 
 export interface Aerosports {
@@ -10,6 +11,7 @@ export interface Aerosports {
     title:        string;
     data:         Data;
     section1:     string;
+    section2:     string;
     path: string;
     children?:    Aerosports[];
     ruleyes:string;
@@ -18,6 +20,8 @@ export interface Aerosports {
     smalltext: string;
     icon: string;
     open: boolean;
+    metatitle: string;
+    metadescription:string;
 }
 
 export interface BirthDayPackages {
@@ -67,5 +71,6 @@ export const PageTypes = {
     Faq:'faq',
     contactus:"contactus",
     PricingComponent:"pricing-promos",
-    Unsubscribe:"unsubscribe"
+    Unsubscribe:"unsubscribe",
+    HomeComponent:"home"
 };

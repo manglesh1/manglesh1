@@ -17,6 +17,7 @@
     "express": "^4.16.1",
     "fs-extra": "^9.0.1",
     "mssql": "^6.2.3",
+    "node-cache": "^5.1.2",
     "nodemailer": "^6.7.5"
   },
   "devDependencies": {

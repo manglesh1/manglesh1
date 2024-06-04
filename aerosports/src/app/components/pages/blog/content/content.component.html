@@ -2,24 +2,17 @@
     <div class="container">
         <div class="row">
             <!-- Article Start -->
-            <div class="col-md-4" *ngFor="let item of blogpost | paginate: { itemsPerPage: 6, currentPage: page }">
+            <div class="col-md-4" *ngFor="let item of blogs | paginate: { itemsPerPage: 6, currentPage: page }">
                 <article class="sigma_post">
                     <div class="sigma_post-thumb">
-                        <a routerLink="/blog-details/{{item.id}}">
-                            <img [src]="item.image[0]" [alt]="item.title">
+                        <a href="/{{item.path}}">   <img [src]="item.smallimage" [alt]="item.title">
                         </a>
-                        <div class="sigma_post-date" [innerHtml]="getInitialDate(item.postdate)">
+                        <div class="sigma_post-date" [innerHtml]="item.pageid">
                         </div>
                     </div>
-                    <div class="sigma_post-body">
-                        <div class="sigma_post-meta">
-                            <div class="mr-3">
-                                <i class="far fa-tag"></i>
-                                <a routerLink="/blog/tag/{{tag.id}}" class="sigma_post-category" *ngFor="let tag of getTags(item.tags) | slice:0:1">{{tag.title}}</a>
-                            </div>
-                        </div>
-                        <h5> <a routerLink="/blog-details/{{item.id}}">{{item.title | slice:0:50}}</a> </h5>
-                        <a routerLink="/blog-details/{{item.id}}" class="btn-link">Continue Reading <i class="far fa-arrow-right"></i> </a>
+                    <div class="sigma_post-body">                        
+                        <h5> <a routerLink="/{{item.path}}">{{item.title | slice:0:50}}</a> </h5>
+                        <a routerLink="/{{item.path}}" class="btn-link">Continue Reading <i class="far fa-arrow-right"></i> </a>
                     </div>
                 </article>
             </div>

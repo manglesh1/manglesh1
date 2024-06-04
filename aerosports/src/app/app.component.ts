@@ -31,8 +31,11 @@ declare let gtag: Function;
 
 export class AppComponent implements OnInit {
 
-  private titleFormat = "Aerosports {{location}} | Best {{feature}} in Ontario | #1 indoor Trampoline Park";
-  private metaDescFormat = "Aerosports {{location}} a Huge indoor trampoline park with Ninja Warrior Course, open jump, foam pits, {{feature}} basketball area & more. Great for birthday parties & events!";
+  private titleFormat = "{{feature}} | Indoor Trampoline Park - {{location}} Aerosports" ;
+
+  
+  private metaDescFormat = "AeroSports Trampoline Park in {{location}}, Ontario offers exciting activities and attractions for kids of all ages. Perfect for family fun, birthday parties, and summer camps! Join us for unforgettable experiences and thrilling adventures."
+  
   private metaTitleFormat = "{{location}} ON {{feature}} | Aerosports Trampoline Park+";
   private metaOgDesc = "Aerosports Offers a variety of exciting trampoline park attractions and programs in {{location}} ON, including {{feature}}.Best place for birthday parties";
   private locationFormat = '{{location}}';
@@ -47,6 +50,7 @@ export class AppComponent implements OnInit {
     
     ) {
       this.router.events.subscribe(event => {
+        
         if(event instanceof NavigationEnd){
             console.log("COMPONENTS TAGS");
             console.log(this.commonService.locations[0].tag);
@@ -62,6 +66,7 @@ export class AppComponent implements OnInit {
                   }
                  );
          }
+         console.log(event);
       }
    );
      
@@ -81,22 +86,32 @@ export class AppComponent implements OnInit {
     
     var pType = this.router.url.split('/').pop();  
     //console.log(pType); 
-    //console.log(this.commonService.allPages);  
+  //  console.log("app");
+ //   console.log(this.commonService.allPages);  
+    var pagepath=((this.router.url.split('/').length ==2)?'home':pType);
+    console.log(pagepath);
+    console.log(this.commonService.allPages);
     var d = this.commonService.allPages.filter(s =>{
-      return s.path == pType;
+      return s.path == pagepath.toLowerCase();
     });
+  //  console.log(this.commonService.allPages);  
+  //  console.log(pType);
+   //    console.log(this.router.url.split('/').length);
+      console.log(d);
 
+     
+          this.titleService.setTitle(this.replaceValues((d[0].metatitle==''?this.titleFormat:d[0].metatitle),d[0].desc));
 
-      this.titleService.setTitle(this.replaceValues(this.titleFormat, d));
-
-      this.createOrUpdateTag('robots','index,follow',d);
-      this.createOrUpdateTag('description',this.metaDescFormat,d);
-      this.createOrUpdateTag('og:title',this.metaTitleFormat,d);
-      this.createOrUpdateTag('og:description',this.metaOgDesc,d);
+      
+      this.createOrUpdateTag('robots','index,follow','');
+      this.createOrUpdateTag('description',  this.replaceValues((d[0].metadescription==''?this.metaDescFormat:d[0].metadescription),d[0].desc),d[0].desc);
+     
+      this.createOrUpdateTag('og:title',this.metaTitleFormat,d?d[0].path:'');
+      this.createOrUpdateTag('og:description',this.metaOgDesc,d?d[0].path:'');
       this.createOrUpdateTag('og:type',"website",d);
       if(d[0])
-        this.createOrUpdateTag('og:image',d[0].headerimage,d);
-      this.createOrUpdateTag('og:url',window.location.href,d);
+        this.createOrUpdateTag('og:image',d[0].headerimage,d?d[0].path:'');
+      this.createOrUpdateTag('og:url',window.location.href,d?d[0].path:'');
       // this.metaService.addTags([
       //   {name: 'robots', content: 'index,follow'},
       //   {name: 'description', content: this.replaceValues(this.metaDescFormat,d)},
@@ -109,20 +124,21 @@ export class AppComponent implements OnInit {
       // ]);
 }
 
-createOrUpdateTag(nameValue: string, content: string, d:any){
+createOrUpdateTag(nameValue: string, content: string, path:any){
   //console.log(this.metaService.getTag("name='" + nameValue + "'"));
   this.metaService.getTag("name='" + nameValue + "'") ? 
-          this.metaService.updateTag({name: nameValue, content: this.replaceValues(content,d)},"name='"+ nameValue +"'") : 
-          this.metaService.addTag({name: nameValue, content: this.replaceValues(content,d)});
+         this.metaService.updateTag({name: nameValue, content: this.replaceValues(content,path)},"name='"+ nameValue +"'") : 
+          this.metaService.addTag({name: nameValue, content: this.replaceValues(content,path)});
 
 }
 
-replaceValues(val: String, d:any){
-  //console.log(d);
+replaceValues(val: String, path: any ){
+  console.log(val);
 
-  var data = val.replace(this.locationFormat,this.commonService.location);
-  data =  data.replace(this.featureFormat, d.length > 0 ? d[0].desc : '');
-  return data;
+  return val.replace(this.locationFormat,this.commonService.location).replace(this.featureFormat, path);
+ 
+ // console.log(data);
+ // return data;
   //console.log(title);
 }
 

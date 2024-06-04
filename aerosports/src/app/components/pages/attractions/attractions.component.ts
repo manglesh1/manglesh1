@@ -31,10 +31,11 @@ export class AttractionsComponent implements OnInit {
 
   buildInitial(){
     var pType = this.router.url.split('/').pop();
-    
+    console.log(this.router.url);
+
     if(this.pagetype === "")
       this.pagetype = pType === undefined ? '' : pType;
-
+    
       console.log("attractions" + this.pagetype);
 
       this.route.params.subscribe(routeParams => {

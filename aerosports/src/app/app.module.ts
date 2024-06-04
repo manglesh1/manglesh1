@@ -16,6 +16,7 @@ import { ContactComponent } from './components/pages/contact/contact.component';
 import { ContactFormComponent } from './components/pages/contact/contact-form/contact-form.component';
 import { UnsubscribeComponent } from './components/pages/unsubscribe/unsubscribe.component';
 import { PromoPopupComponent } from './components/pages/promo-popup/promo-popup.component';
+import { SummercampComponent } from './components/pages/summercamp/summercamp.component';
 
 
 
@@ -27,7 +28,9 @@ import { PromoPopupComponent } from './components/pages/promo-popup/promo-popup.
         ContactComponent,
         ContactFormComponent,
         UnsubscribeComponent,
-        PromoPopupComponent
+        PromoPopupComponent,
+        SummercampComponent
+      
     ],
     imports: [
         BrowserModule,

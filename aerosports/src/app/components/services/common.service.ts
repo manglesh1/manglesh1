@@ -1,9 +1,10 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable, Type } from '@angular/core';
+import { ElementRef, Injectable, Renderer2, SecurityContext, Type } from '@angular/core';
 import * as  XLSX from 'xlsx';
 import { tap } from 'rxjs/operators';
 import { BehaviorSubject } from 'rxjs';
 import { animate, animateChild, group, query, style, transition, trigger } from '@angular/animations';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Injectable({
   providedIn: 'root'
@@ -22,6 +23,7 @@ export class CommonService {
   public locations:any[] = [];
   public aerosprots$: BehaviorSubject<any[]> = new BehaviorSubject<any[]>([]);
   public blogs:any[] = [];
+ 
   
   constructor(private httpClient: HttpClient){
       
@@ -30,8 +32,10 @@ export class CommonService {
 
 
    load(){
-   console.log("load common service");
-    return this.httpClient.get('assets/data/menu.xlsx', { responseType: 'blob' }).pipe( tap(data =>{
+     console.log("load common service");
+     const fileId = '1zpV1juNopYe4bnFP959w3ldwj0dC-3WF'; // Extracted File ID
+    const gcpBucketUrl = `https://docs.google.com/spreadsheets/d/1zpV1juNopYe4bnFP959w3ldwj0dC-3WF/export?format=xlsx`;
+    return this.httpClient.get(gcpBucketUrl, { responseType: 'blob' }).pipe( tap(data =>{
       const reader: FileReader = new FileReader();
       reader.onload = (e: any) => {
         var url = window.location.href;
@@ -56,22 +60,24 @@ export class CommonService {
         this.currentPage = this.aerosports.filter(m=>{
                return m.path.toUpperCase()== path?.toUpperCase();  
         })[0];
+
         /*****************end getting current page*********************** */
         this.locations = XLSX.utils.sheet_to_json(wb.Sheets["locations"], {defval:""}) ;
-/*        console.log(this.locations);
+        console.log(this.locations);
+       
         console.log(this.location);
         var sitemap='<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">';
         this.locations.forEach(t=>{
           this.jsonData.forEach(data=>{
             if(data.location.toUpperCase().indexOf(t.locations.toUpperCase())>-1 ||data.location=='')
-              sitemap=sitemap+'<url><loc>https://www.aerosportsparks.ca/'+t.locations+'/'+data.parentid+'/'+data.path  +'</loc></url>';
+              sitemap=sitemap+'<url><loc>https://www.aerosportsparks.ca/'+t.locations+'/'+data.path  +'</loc></url>';
           })
 
         });
         sitemap=sitemap+'</urlset>';
 
-        console.log("sitemap");
-        console.log(sitemap);*/
+        //console.log("sitemap");
+      //  console.log(sitemap);
         this.allPages=this.aerosports;
         this.BirthDayPackages = XLSX.utils.sheet_to_json(wb.Sheets["birthday packages"], {defval:""}) ;
         this.BirthDayPackages = this.BirthDayPackages.filter(m=>{         
@@ -89,6 +95,9 @@ export class CommonService {
           m.value= m.value.replace(/\r?\n|\r/g, "<br/>");    
           return (m.location.toUpperCase().indexOf(this.location.toUpperCase())>-1 || m.location=='');
         });    
+        console.log('before group')
+       console.log(this.aerosports)
+
         console.log('configtt');
         console.log(this.location);
         console.log(this.config);
@@ -107,7 +116,8 @@ export class CommonService {
         },[]);
 
         this.aerosports = result;
-       
+        console.log('grouped')
+       console.log(this.aerosports)
 
 //          var pagetype = urlItems[4];
         if(this.location!='')
@@ -136,7 +146,44 @@ export class CommonService {
 
   
   }
- 
+  getHtmlAndSetCss(data:string, sanitizer: DomSanitizer,
+    el: ElementRef,
+    renderer: Renderer2):string {
+   let html:string;
+    const parser = new DOMParser();
+    const htmlDoc = parser.parseFromString(data, 'text/html');        
+    
+    let result = htmlDoc.getElementById("preview-container");
+    console.log('preview-container');
+    
+    if(result)
+      {
+        html =sanitizer.sanitize(SecurityContext.HTML,sanitizer.bypassSecurityTrustHtml(result.outerHTML)) as any; //this.sanitizer.sanitize(SecurityContext.HTML,this.sanitizer.bypassSecurityTrustHtml(data.html)) as any;
+        var end = (new Date()).getTime();
+        console.log('after dom');
+        //console.log(end-start)
+      }
+      else{
+        let body = htmlDoc.getElementsByTagName("body");
+        console.log('body');      
+        html =sanitizer.sanitize(SecurityContext.HTML,sanitizer.bypassSecurityTrustHtml(body[0].innerHTML)) as any; //this.sanitizer.sanitize(SecurityContext.HTML,this.sanitizer.bypassSecurityTrustHtml(data.html)) as any;
+        
+      }
+  
+    let styles = htmlDoc.head.getElementsByTagName("style");
+    console.log(styles);
+            for( let i=0; i<styles.length;i++)
+      {
+        // Inject CSS into the head of the document
+        const style = renderer.createElement('style');
+        renderer.setProperty(style, 'textContent', styles[i].innerText);
+        renderer.appendChild(el.nativeElement.ownerDocument.head, style); 
+      }
+    return html;
+  
+  }
+
+
   private _locationCookieName:string = "aero-location";
   set location(value: string){
     localStorage.setItem(this._locationCookieName, value);
@@ -146,8 +193,7 @@ export class CommonService {
     var s = localStorage.getItem(this._locationCookieName);
     return s === null ? '' : s;
   }
-
-  getconfig(key:string): string {
+getconfig(key:string): string {
     //console.log(s);
     //console.log(this.commonService.config);
     var s: any[];
@@ -159,11 +205,15 @@ export class CommonService {
        return s[0].value;
        else 
        return '';    
-        
+
       }
+  
 
   
 }
+
+
+
 export const slideInAnimation =
   trigger('routeAnimations', [
     transition('* <=> *', [

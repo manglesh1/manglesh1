@@ -28,9 +28,9 @@
         
            
    
-                <div class="col-sm" ><a href="tel:{{location.phone}}"    style="color:white ; font-weight: bolder;"   class="btn-sm">
+                <div class="col-sm" ><a href="tel:{{location.phone}}"    style="color:white ; font-weight: bolder;"   class="btn-md">
                     <i class="fa fa-phone-square"></i> {{location.phone}}</a>
-                    <a (click)="onInquireClick()" class="btn-sm " style="color:white ; font-weight: bolder;">
+                    <a (click)="onInquireClick()" class="btn-md " style="color:white ; font-weight: bolder;">
                         <i class="fa fa-calendar"></i> Inquire Now</a>
                 </div>
             
@@ -60,15 +60,15 @@
                 <ul class="navbar-nav">
                     <li class="menu-item" [ngClass]="hasChildren(item) ? 'menu-item-has-children' : ''"
                         *ngFor="let item of navigation">
-                        <a href="javascript:void(0)" *ngIf="!hasLink(item)">{{item.desc}}</a>
+                        <a href="javascript:void(0)" *ngIf="!hasLink(item)" title="{{item.desc}}">{{item.desc}}</a>
                         <a routerLink="/{{commonService.location}}/{{item.path}}"
-                            *ngIf="hasLink(item)">{{item.desc}}</a>
+                            *ngIf="hasLink(item)" title="{{item.desc}}  at Aerosports {{commonService.location}}">{{item.desc}}</a>
                         <ul class="sub-menu" *ngIf="hasChildren(item)" [ngClass]="item.open ? 'd-block' : ''">
                             <li class="menu-item"  [ngClass]="hasChildren(citem) ? 'menu-item-has-children' : ''"
                                 *ngFor="let citem of item.children">
                                 <a href="javascript:void(0)" *ngIf="hasChildren(citem)">{{citem.desc}}</a>
-                                <a routerLink="/{{commonService.location}}/{{item.path}}/{{citem.path}}"
-                                    *ngIf="!hasChildren(citem)">{{citem.desc}}</a>
+                                <a routerLink="/{{commonService.location}}/{{citem.path}}"
+                                    *ngIf="!hasChildren(citem)" title="{{citem.desc}}  at Aerosports {{commonService.location}}" >{{citem.desc}}</a>
                                 <!-- <ul class="sub-menu" *ngIf="item.child" [ngClass]="item.open ? 'd-block' : ''">
                                     <li class="menu-item" *ngFor="let item of item.submenu">
                                         <a routerLink="{{item.link}}">{{item.linkText}} </a>
@@ -81,16 +81,16 @@
                 
                 
                 
-                <a (click)="onInquireClick()" class="btn-sm " style="color:white ; font-weight: bolder;">
+                <a (click)="onInquireClick()" class="btn-sm " style="color:white ; font-weight: bolder;" title="Query to aerosports" >
                     <i class="fa fa-calendar"></i> Inquire Now</a>
                 <div class="sigma_header-controls style-2 d-flex">
                     <ul class="sigma_header-controls-inner">
-                        <li class="search-trigger header-controls-item d-none d-sm-block">
+                       <!-- <li class="search-trigger header-controls-item d-none d-sm-block">
                             <a class="sigma_header-control-search" title="Search" href="javascript:void(0)"
-                                (click)="searchToggle()">
+                                (click)="searchToggle()"  >
                                 <i class="fal fa-search"></i>
                             </a>
-                        </li>
+                        </li>-->
                         <li class="aside-toggle aside-trigger-right desktop-toggler" (click)="canvasToggle()">
                             <span></span>
                             <span></span>
@@ -138,95 +138,15 @@
     </div>
     <app-mobile-menu></app-mobile-menu>
 </aside>
+<a id='logo' routerLink="/{{commonService.location}}" title="Aerosports {{commonService.location}} home page" ><img src="/assets/image/logo/logo_white.png" alt="Aerosports Logo" /></a>
+<h1> {{page.title}} <small ><div [innerHTML]="page.smalltext"></div></small><small><a href="{{getroller()}}" target="_blank" class="sigma_btn-custom" title="Booking Now">Book Now<i class="far fa-arrow-right"  ></i></a></small>
+<small> <a href="{{getconfig('waiver')}}" target="_blank" class="sigma_btn-custom" title="Waiver Link for Aerosports {{commonService.location}}" >Waiver<i class="far fa-arrow-right"  ></i> </a></small>
+  
+</h1>
 
-<div class="sigma_banner banner-2" *ngIf="page.headerimage != ''">
-    <ngx-slick-carousel #slickModal="slick-carousel" [config]="settings" class="sigma_banner-slider"
-        *ngIf="page.headerimage.split(',') != [] ">
-        <div ngxSlickItem class="slide" *ngFor="let item of page.headerimage.split(',')">
-            <div id="header1" class="mobileheader" style="background-image: url('{{item}}');">
-                <div class="container text-white">
-                    <div class="row ">
-                        <div class="col-sm  d-flex align-items-left">
-                            <a routerLink="/{{commonService.location}}"><img
-                                    src="/assets/image/logo/logo_white.png" /></a>
-                                    
-                                    
-                        </div>
-                        
-                    </div>
-                 
-                    <div class="row">
-                        <div class="col text-center">
-                         <!--   <h1
-                                class="stroke-text text-white animate__animated animate__fadeInLeftBig animate__delay-0.1s animate__1">
-                                {{page.title}}
-                            </h1>-->
-                            <h1
-                            class="stroke-text text-white">
-                            {{page.title}}
-                        </h1>
-                        </div>
-                    </div>
-                    <!--<div class="row justify-content-md-center">
-                                <div style="color:white ; font-size:70px;font-weight: bolder;"
-                                 class="animate__animated animate__fadeInRightBig animate__delay-1s animate__1">
-                                    &nbsp;TRAMPOLINE PARK                                                                
-                            </div></div>-->
-                    <div class="row">
-                        <div class="col text-center">
-                            <h6
-                                class="text-white">
-                                {{page.smalltext}}</h6>
-<!--
-                                <h6
-                                class="text-white animate__animated animate__fadeInLeftBig animate__delay-0.1s animate__1">
-                                {{page.smalltext}}</h6>-->
-                        </div>
-
-                    </div>
-
-                    <!---                            <div class="row justify-content-md-center">
-                            <div class="col col-lg-4 animate__animated animate__flash animate__delay-2s animate__1"><p>HAVE FUN AND KEEP FIT</p>
-                                <p>JUMP, FLIP , BOUNCE</p>
-                                <p>VISIT AEROSPORTS TODAY</p>
-                                </div>
-                            </div>
-
-
-                                <div>
-                                    <h4 class="text-white" style="background-color:black ;">CHECK ALL THE ACTION</h4>
-                                        <div class="section-button d-flex align-items-center">
-                                            <a routerLink="/case-study" class="sigma_btn-custom">Read more <i class="far fa-arrow-right"></i> </a>
-                                        </div>
-
-                                </div>-->
-                    <div class="row">
-                        <!--<div class="col section-button text-center animate__animated animate__fadeInLeftBig animate__delay-0.1s animate__1">-->
-                        <div class="col section-button  text-center">
-                            <a href="{{getroller()}}" target="_blank" class="sigma_btn-custom">Book Now<i
-                                    class="far fa-arrow-right"  ></i></a>&nbsp;
-                                    <a href="{{getconfig('waiver')}}" target="_blank" class="sigma_btn-custom">Waiver<i
-                                        class="far fa-arrow-right"  ></i> </a>
-                             
-                            
-                        </div>
-
-                    </div>
-
-                    <!--
-                                   <div class="row justify-content-md-center">
-                                        <div class="offset-lg-2 col-lg-4 d-none d-lg-block">
-                                    
-                                        <a href="https://www.youtube.com/watch?v=78W4BGKIeMg" class="sigma_video-popup bg-white popup-youtube">
-                                        
-                                        <img class="fas fa-play" src="/assets/image/play_btn.png" sizes="(max-width: 904px)">
-                                                <i class="fas fa-play"></i>
-                                        </a>
-                                    </div>
-                                </div>-->
-                </div>
-            </div>
-        </div>
-    
-    </ngx-slick-carousel>
+<!-- You can add more ".slideshow-image" elements, but remember to update the "$items" variable on SCSS -->
+<div class="slideshow" >
+    <ng-container  *ngFor="let item of page.headerimage.split(',')">
+         <div class="slideshow-image lazyload" style="background-image: url('{{item}}')"></div>  
+    </ng-container>
 </div>

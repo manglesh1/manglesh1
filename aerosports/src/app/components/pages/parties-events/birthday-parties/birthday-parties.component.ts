@@ -16,13 +16,15 @@ export class BirthdayPartiesComponent implements OnInit {
   rules!: Config[];
   constructor(private route: ActivatedRoute, 
      private router: Router,
-      private commonService: CommonService) { 
+      public commonService: CommonService) { 
        this.buildInitial();
    }
 
    buildInitial(){
+    console.log(this.route.params);
+    console.log('routeParams.location0');   
     this.route.params.subscribe(routeParams => {  
-      console.log(routeParams.location);   
+      console.log('routeParams.location');   
     this.bps= this.commonService.BirthDayPackages;
 
      this.addons = this.commonService.config.filter(t=>{
